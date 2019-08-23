@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from flask import Flask, request, abort
+from flask import Flask, request, abort, Response
 import tempfile
 import os
 import errno
@@ -28,7 +28,9 @@ def index():
     indexfile = open(dirpath + "/index.html", "r")
     text = indexfile.read()
     indexfile.close()
-    return text
+    resp = flask.Response(text)
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
 
 
 @app.route('/<path:path>', methods=['GET'])
@@ -41,7 +43,9 @@ def catch_get(path):
     except IOError:
         text = "404\n File not found"
         abort(404)
-    return text + "\n"
+    resp = flask.Response(text)
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
 
 
 @app.route('/<path:path>', methods=['POST', 'PUT'])
