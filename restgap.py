@@ -1,12 +1,14 @@
 #!/usr/bin/env python
 
 from flask import Flask, request, abort, Response
+from flask_cors import CORS
 import tempfile
 import os
 import errno
 
 dirpath = tempfile.mkdtemp()
 app = Flask(__name__)
+CORS(app)
 
 manifest = open(dirpath + "/index.html", "w")
 manifest.write("If you see this in prod, someone should be shot.\n")
@@ -29,8 +31,6 @@ def index():
     text = indexfile.read()
     indexfile.close()
     resp = Response(text)
-    resp.headers['Access-Control-Allow-Origin'] = '*'
-    resp.headers['Access-Control-Allow-Methods'] = 'GET, UPDATE, DELETE, PUT, POST'
     return resp
 
 
@@ -45,8 +45,6 @@ def catch_get(path):
         text = "404\n File not found"
         abort(404)
     resp = Response(text)
-    resp.headers['Access-Control-Allow-Origin'] = '*'
-    resp.headers['Access-Control-Allow-Methods'] = 'GET, UPDATE, DELETE, PUT, POST'
     return resp
 
 
@@ -66,8 +64,6 @@ def catch_post(path):
     writefile.close()
     text = ''
     resp = Response(text, status=201, mimetype='application/json')
-    resp.headers['Access-Control-Allow-Origin'] = '*'
-    resp.headers['Access-Control-Allow-Methods'] = 'GET, UPDATE, DELETE, PUT, POST'
     return resp
 
 
@@ -80,8 +76,6 @@ def catch_del(path):
         abort(404)
     text = ''
     resp = Response(text, status=200, mimetype='application/json')
-    resp.headers['Access-Control-Allow-Origin'] = '*'
-    resp.headers['Access-Control-Allow-Methods'] = 'GET, UPDATE, DELETE, PUT, POST'
     return resp
 
 
