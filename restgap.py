@@ -28,7 +28,7 @@ def index():
     indexfile = open(dirpath + "/index.html", "r")
     text = indexfile.read()
     indexfile.close()
-    resp = flask.Response(text)
+    resp = Response(text)
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp
 
@@ -43,7 +43,7 @@ def catch_get(path):
     except IOError:
         text = "404\n File not found"
         abort(404)
-    resp = flask.Response(text)
+    resp = Response(text)
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp
 
