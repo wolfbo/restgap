@@ -30,6 +30,7 @@ def index():
     indexfile.close()
     resp = Response(text)
     resp.headers['Access-Control-Allow-Origin'] = '*'
+    resp.headers['Access-Control-Allow-Methods'] = 'GET, UPDATE, DELETE, PUT, POST'
     return resp
 
 
@@ -45,6 +46,7 @@ def catch_get(path):
         abort(404)
     resp = Response(text)
     resp.headers['Access-Control-Allow-Origin'] = '*'
+    resp.headers['Access-Control-Allow-Methods'] = 'GET, UPDATE, DELETE, PUT, POST'
     return resp
 
 
@@ -65,6 +67,7 @@ def catch_post(path):
     text = ''
     resp = Response(text, status=201, mimetype='application/json')
     resp.headers['Access-Control-Allow-Origin'] = '*'
+    resp.headers['Access-Control-Allow-Methods'] = 'GET, UPDATE, DELETE, PUT, POST'
     return resp
 
 
@@ -78,6 +81,7 @@ def catch_del(path):
     text = ''
     resp = Response(text, status=200, mimetype='application/json')
     resp.headers['Access-Control-Allow-Origin'] = '*'
+    resp.headers['Access-Control-Allow-Methods'] = 'GET, UPDATE, DELETE, PUT, POST'
     return resp
 
 
