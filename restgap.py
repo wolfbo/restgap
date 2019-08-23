@@ -62,7 +62,10 @@ def catch_post(path):
     writefile = open(temppath, "w")
     writefile.write(inputdata)
     writefile.close()
-    return '', 201
+    text = ''
+    resp = Response(text, status=201, mimetype='application/json')
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
 
 
 @app.route('/<path:path>', methods=['DELETE'])
@@ -72,7 +75,10 @@ def catch_del(path):
         os.remove(temppath)
     except IOError:
         abort(404)
-    return '', 200
+    text = ''
+    resp = Response(text, status=200, mimetype='application/json')
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
 
 
 if __name__ == '__main__':
